@@ -1,5 +1,5 @@
 # MP 2: New Clear REACTive App
-### Due: October 7th, 2025, 11:59PM CDT
+### Due: Tuesday, Oct 6, 2026, 11:59PM CT
 
 ## Table of Contents
 1. [Assignment](#assignment)
@@ -97,11 +97,14 @@ You may be wondering how the command `npx create-react-app my-app --template typ
 
 ## Submission Details
 
+> **TODO (staff): link the Fall 2026 submission form here before release.** The Fall 2025 form has been removed -- do not reuse it, or submissions land in last year's response sheet.
+
+
 Here's what you will need to submit:
-1. Clone the repository `git clone git@github.com:cs409-fa25/mp2.git`
+1. On the [class repo](https://github.com/cs409-fa25/mp2), click **Use this template** > **Create a new repository**. Name it `mp2` and make it **public** (GitHub Pages requires a public repo on a free account). Then clone it: `git clone git@github.com:<your-github-username>/mp2.git`
 2. On local machine, run `npx create-react-app mp2 --template typescript` to create starter code and `cd mp2` to enter into React app directory. The `create-react-app` will set up the git environment for you.
-  - If it doesn't work becausee the folder exists, instead, make the react app in a different directory and copy it over into this repo OR copy the `.github` folder and all files within to your created React project.
-4. Add `"homepage": "https://<your-github-username>.github.io/<your-github-repo-name>"` to your `package.json`
+  - If it doesn't work because the folder exists, instead, make the react app in a different directory and copy it over into this repo OR copy the `.github` folder and all files within to your created React project.
+3. Add `"homepage": "https://<your-github-username>.github.io/<your-github-repo-name>"` to your `package.json`
 ```
 {
   "name": "your-app-name",
@@ -118,15 +121,8 @@ Here's what you will need to submit:
 </BrowserRouter>
 ```
   - Note: Should use `<Link/>` component instead of `<a>` to have the same basename.
-3. [Create a public repository on GitHub.](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository) Make sure "Initialize this repository with a README" is **not** checked.
-4. Set GitHub Pages Deployment Source to Github Actions
+5. Set GitHub Pages Deployment Source to Github Actions
    - In your Github repo, go to Settings > Pages > Build and Deployment > Source > Select "GitHub Actions"
-5. Change the remote url for your local mp2 directory to the url of the new public repository you created.
-```
-git remote rename origin old-origin
-git remote add origin git@github.com:<your-github-username>/mp2.git
-# run `git remote -v` to check your origin 
-```
 6. Commit and push your local changes to this new repository.
 ```
 git add . # "." adds all changed files, can also add specific files too
@@ -134,12 +130,12 @@ git commit -m "[my-commit-message]" # message should be clear and meaningful
 git branch -M main
 git push origin main
 ```
-7. `.github/workflows/deploy.yml` file automatically makes a GitHub CI pipeline run to deploy your code. After the pipeline finishes, your site should be live at `https://<your-github-username>.github.com/mp2`. **It should take around 1 minute.**
-8. Make a video (3 minutes max) demo-ing your deployed website and upload it to Google Drive. Share it with `uiuc.web.programming@gmail.com` and put the share link in the Google form.
+7. `.github/workflows/deploy.yml` file automatically makes a GitHub CI pipeline run to deploy your code. After the pipeline finishes, your site should be live at `https://<your-github-username>.github.io/mp2`. **It should take around 1 minute.**
+8. Make a video (3 minutes max) demo-ing your deployed website and upload it to Google Drive. Share it with `uiuc.web.programming@gmail.com` and put the share link in the submission form.
 - Show the url to prove you are on your deployed website. Then show all the requirement features you fulfilled in your mp.
 - If you were unable to deploy your website, you can demo your mp locally for some point deduction (hard capped at 80%)
   - Just make sure you do `git status` and `git log` first so we can see your last edits.
-9. Fill out and submit the form [here](https://forms.gle/E7qr5MbSnxFCLpaV7).
+9. Fill out and submit the form [here](https://forms.gle/PkYq9RaMFG8MaMjF7).
 
 ## Large Language Model (LLM) Usage Policy
 We acknowledge the transformative potential of LLMs in generating code; however, we are still in the nascent stages of understanding how to embed LLMs in developer workflows to write code more efficiently while maintaining quality. Therefore, we will not be teaching students directly how to use LLMs to develop web applications.
