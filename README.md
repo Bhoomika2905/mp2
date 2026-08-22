@@ -1,6 +1,18 @@
 # MP 2: New Clear REACTive App
 ### Due: Tuesday, Oct 6, 2026, 11:59PM CT
 
+> **⚠️ MP2 TA: this MP was migrated from Create React App to Vite for Fall 2026 and has NOT been run end-to-end.**
+> CRA was deprecated by the React team in Feb 2025; `react-scripts` is still 5.0.1 (Apr 2022) and its
+> TypeScript peer range caps at `^4`, so `--template typescript` no longer resolves cleanly against
+> current React/TypeScript. Please walk the whole flow once before release and confirm:
+> 1. `npm create vite@latest . -- --template react-ts` in a fresh clone, choosing "Ignore files and continue"
+> 2. `npm install` then `npm run dev` serves on **5173** (was 3000 under CRA)
+> 3. `npm run build` emits **`dist/`** (was `build/`) and `.github/workflows/deploy.yml` uploads that path
+> 4. The deployed site loads its JS/CSS -- this is what `base` in `vite.config.ts` controls; a wrong
+>    `base` yields a blank page with 404s on assets, not a build failure
+> 5. Client-side routes still resolve under the `/mp2/` subpath
+> 6. The autograder / grading scripts don't assume a CRA layout (`src/App.js`, `build/`, `PUBLIC_URL`)
+
 ## Table of Contents
 1. [Assignment](#assignment)
 2. [Grading Breakdown](#grading-breakdown)
@@ -73,7 +85,7 @@ Other:
   - Visit https://reactjs.org/docs/faq-structure.html for examples on how to structure your React files.
   - You may use a React component library for this MP.
   - We recommend using [Normalize.css](https://necolas.github.io/normalize.css/).
-  - We recommend using [CSS Modules](https://blog.bitsrc.io/how-to-use-sass-and-css-modules-with-create-react-app-83fa8b805e5e).
+  - We recommend using [CSS Modules](https://vite.dev/guide/features.html#css-modules), which Vite supports out of the box via `*.module.css`.
 
 ## Rules
 1. This is an individual assignment. No collaboration is permitted.
@@ -82,60 +94,67 @@ Other:
 4. No inline script tags should be used.
 5. HTML tables cannot be used for layout.
 6. If you think something you’re doing might not be acceptable, please ask on Piazza.
-7. We *strongly* recommend using `Create React App` to get your MP started. If you ignore this, we will not help with any environment issues.
+7. We *strongly* recommend using `Vite` to get your MP started. If you ignore this, we will not help with any environment issues.
 
 ## Getting Started
-1. Use `Create React App` (CRA) (see below) to generate your MP starter code in a directory of your choice.
-2. After running `npm start` open a browser and go to `http://localhost:3000/` to view your page.
-3. Open up `src/app.js` to start building your first component. Visit https://reactjs.org/docs/getting-started.html for many official, high quality resources to help get you started.
+1. Use `Vite` (see below) to generate your MP starter code, then run `npm install`.
+2. After running `npm run dev` open a browser and go to `http://localhost:5173/` to view your page.
+3. Open up `src/App.tsx` to start building your first component. Visit https://react.dev/learn for many official, high quality resources to help get you started.
 
-### Create React App
-`create-react-app` is a tool that allows you to generate a react starter project that requires no immediate configuration. Visit the [getting started guide](https://facebook.github.io/create-react-app/docs/getting-started) to read more. You should use `create-react-app` with the [Typescript template](https://create-react-app.dev/docs/getting-started/#creating-a-typescript-app).
+### Vite
+[Vite](https://vite.dev/) generates a React starter project that requires no immediate configuration, and is one of the tools [React officially recommends](https://react.dev/link/cra) now that Create React App is deprecated. Use the **react-ts** template:
 
-You may be wondering how the command `npx create-react-app my-app --template typescript` works and why there is no installation step. Click [here](https://www.bram.us/2017/07/15/introducing-npx-an-npm-package-runner/) for an explanation of `npx`.
+```
+npm create vite@latest my-app -- --template react-ts
+```
+
+Unlike `create-react-app`, Vite does **not** install dependencies for you -- run `npm install` afterwards. The dev server is `npm run dev` (not `npm start`), and a production build goes to `dist/` (not `build/`).
 
 
 ## Submission Details
 
-> **TODO (staff): link the Fall 2026 submission form here before release.** The Fall 2025 form has been removed -- do not reuse it, or submissions land in last year's response sheet.
-
-
 Here's what you will need to submit:
 1. On the [class repo](https://github.com/cs409-fa25/mp2), click **Use this template** > **Create a new repository**. Name it `mp2` and make it **public** (GitHub Pages requires a public repo on a free account). Then clone it: `git clone git@github.com:<your-github-username>/mp2.git`
-2. On local machine, run `npx create-react-app mp2 --template typescript` to create starter code and `cd mp2` to enter into React app directory. The `create-react-app` will set up the git environment for you.
-  - If it doesn't work because the folder exists, instead, make the react app in a different directory and copy it over into this repo OR copy the `.github` folder and all files within to your created React project.
-3. Add `"homepage": "https://<your-github-username>.github.io/<your-github-repo-name>"` to your `package.json`
+2. `cd mp2`, then scaffold a Vite + React + TypeScript project **in place**:
 ```
-{
-  "name": "your-app-name",
-  "version": "0.1.0",
-  "private": true,
-  "homepage": "https://<your-github-username>.github.io/<your-github-repo-name>",
-  //...
-}
+npm create vite@latest . -- --template react-ts
 ```
-4. In your `BrowserRouter` or `Router` component, set `basename="/<your-github-repo-name>"`
+  - The directory already has `README.md` and `.github/`, so Vite will ask how to proceed. Choose **"Ignore files and continue"** so those are kept. (Do NOT choose "Remove existing files" -- that deletes the deploy workflow.)
+3. Install dependencies:
 ```
-<BrowserRouter basename="/<your-github-repo-name>">
+npm install
+```
+  - This also creates `package-lock.json`. **Commit it** -- the deploy workflow runs `npm ci`, which fails without a lockfile.
+4. Set `base` in `vite.config.ts` so the deployed site can find its assets:
+```ts
+export default defineConfig({
+  plugins: [react()],
+  base: '/<your-github-repo-name>/',   // e.g. '/mp2/' -- must match the repo name
+})
+```
+  - Getting this wrong produces a blank page with 404s on your JS/CSS, not a build error.
+5. In your `BrowserRouter` or `Router` component, set the basename to match:
+```
+<BrowserRouter basename={import.meta.env.BASE_URL}>
   ...
 </BrowserRouter>
 ```
   - Note: Should use `<Link/>` component instead of `<a>` to have the same basename.
-5. Set GitHub Pages Deployment Source to Github Actions
+6. Set GitHub Pages Deployment Source to Github Actions
    - In your Github repo, go to Settings > Pages > Build and Deployment > Source > Select "GitHub Actions"
-6. Commit and push your local changes to this new repository.
+7. Commit and push your local changes to this new repository.
 ```
 git add . # "." adds all changed files, can also add specific files too
 git commit -m "[my-commit-message]" # message should be clear and meaningful
 git branch -M main
 git push origin main
 ```
-7. `.github/workflows/deploy.yml` file automatically makes a GitHub CI pipeline run to deploy your code. After the pipeline finishes, your site should be live at `https://<your-github-username>.github.io/mp2`. **It should take around 1 minute.**
-8. Make a video (3 minutes max) demo-ing your deployed website and upload it to Google Drive. Share it with `uiuc.web.programming@gmail.com` and put the share link in the submission form.
+8. `.github/workflows/deploy.yml` file automatically makes a GitHub CI pipeline run to deploy your code. After the pipeline finishes, your site should be live at `https://<your-github-username>.github.io/mp2`. **It should take around 1 minute.**
+9. Make a video (3 minutes max) demo-ing your deployed website and upload it to Google Drive. Share it with `uiuc.web.programming@gmail.com` and put the share link in the submission form.
 - Show the url to prove you are on your deployed website. Then show all the requirement features you fulfilled in your mp.
 - If you were unable to deploy your website, you can demo your mp locally for some point deduction (hard capped at 80%)
   - Just make sure you do `git status` and `git log` first so we can see your last edits.
-9. Fill out and submit the form [here](https://forms.gle/PkYq9RaMFG8MaMjF7).
+10. Fill out and submit the form [here](https://forms.gle/PkYq9RaMFG8MaMjF7).
 
 ## Large Language Model (LLM) Usage Policy
 We acknowledge the transformative potential of LLMs in generating code; however, we are still in the nascent stages of understanding how to embed LLMs in developer workflows to write code more efficiently while maintaining quality. Therefore, we will not be teaching students directly how to use LLMs to develop web applications.

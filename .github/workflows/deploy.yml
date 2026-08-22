@@ -40,7 +40,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./build
+          # Vite's build output dir (CRA used ./build)
+          path: ./dist
   
   deploy:
     needs: build
