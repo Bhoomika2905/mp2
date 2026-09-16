@@ -5,13 +5,13 @@
 > CRA was deprecated by the React team in Feb 2025; `react-scripts` is still 5.0.1 (Apr 2022) and its
 > TypeScript peer range caps at `^4`, so `--template typescript` no longer resolves cleanly against
 > current React/TypeScript. Please walk the whole flow once before release and confirm:
-> 1. `npm create vite@latest . -- --template react-ts` in a fresh clone, choosing "Ignore files and continue"
-> 2. `npm install` then `npm run dev` serves on **5173** (was 3000 under CRA)
-> 3. `npm run build` emits **`dist/`** (was `build/`) and `.github/workflows/deploy.yml` uploads that path
-> 4. The deployed site loads its JS/CSS -- this is what `base` in `vite.config.ts` controls; a wrong
+> 1. [WARNING: this will overwrite the existing README file] `npm create vite@latest . -- --template react-ts` in a fresh clone, choosing "Ignore files and continue"
+> 2. [CONFIRMED] `npm install` then `npm run dev` serves on **5173** (was 3000 under CRA)
+> 3. [CONFIRMED] `npm run build` emits **`dist/`** (was `build/`) and `.github/workflows/deploy.yml` uploads that path
+> 4. [CONFIRMED] The deployed site loads its JS/CSS -- this is what `base` in `vite.config.ts` controls; a wrong
 >    `base` yields a blank page with 404s on assets, not a build failure
-> 5. Client-side routes still resolve under the `/mp2/` subpath
-> 6. The autograder / grading scripts don't assume a CRA layout (`src/App.js`, `build/`, `PUBLIC_URL`)
+> 5. [CONFIRMED] Client-side routes still resolve under the `/mp2/` subpath
+> 6. [N/A] The autograder / grading scripts don't assume a CRA layout (`src/App.js`, `build/`, `PUBLIC_URL`)
 
 ## Table of Contents
 1. [Assignment](#assignment)
@@ -105,10 +105,10 @@ Other:
 [Vite](https://vite.dev/) generates a React starter project that requires no immediate configuration, and is one of the tools [React officially recommends](https://react.dev/link/cra) now that Create React App is deprecated. Use the **react-ts** template:
 
 ```
-npm create vite@latest my-app -- --template react-ts
+npm create vite@latest . -- --template react-ts
 ```
 
-Unlike `create-react-app`, Vite does **not** install dependencies for you -- run `npm install` afterwards. The dev server is `npm run dev` (not `npm start`), and a production build goes to `dist/` (not `build/`).
+If Vite does **not** install dependencies for you, run `npm install` afterwards. The dev server is `npm run dev` (not `npm start`), and a production build goes to `dist/` (not `build/`).
 
 
 ## Submission Details
