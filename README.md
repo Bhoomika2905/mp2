@@ -1,18 +1,6 @@
 # MP 2: New Clear REACTive App
 ### Due: Tuesday, Oct 6, 2026, 11:59PM CT
 
-> **⚠️ MP2 TA: this MP was migrated from Create React App to Vite for Fall 2026 and has NOT been run end-to-end.**
-> CRA was deprecated by the React team in Feb 2025; `react-scripts` is still 5.0.1 (Apr 2022) and its
-> TypeScript peer range caps at `^4`, so `--template typescript` no longer resolves cleanly against
-> current React/TypeScript. Please walk the whole flow once before release and confirm:
-> 1. [WARNING: this will overwrite the existing README file] `npm create vite@latest . -- --template react-ts` in a fresh clone, choosing "Ignore files and continue"
-> 2. [CONFIRMED] `npm install` then `npm run dev` serves on **5173** (was 3000 under CRA)
-> 3. [CONFIRMED] `npm run build` emits **`dist/`** (was `build/`) and `.github/workflows/deploy.yml` uploads that path
-> 4. [CONFIRMED] The deployed site loads its JS/CSS -- this is what `base` in `vite.config.ts` controls; a wrong
->    `base` yields a blank page with 404s on assets, not a build failure
-> 5. [CONFIRMED] Client-side routes still resolve under the `/mp2/` subpath
-> 6. [N/A] The autograder / grading scripts don't assume a CRA layout (`src/App.js`, `build/`, `PUBLIC_URL`)
-
 ## Table of Contents
 1. [Assignment](#assignment)
 2. [Grading Breakdown](#grading-breakdown)
@@ -119,7 +107,8 @@ Here's what you will need to submit:
 ```
 npm create vite@latest . -- --template react-ts
 ```
-  - The directory already has `README.md` and `.github/`, so Vite will ask how to proceed. Choose **"Ignore files and continue"** so those are kept. (Do NOT choose "Remove existing files" -- that deletes the deploy workflow.)
+  - The directory already has `README.md` and `.github/`, so Vite will ask how to proceed. Choose **"Ignore files and continue"**. (Do NOT choose "Remove existing files" -- that deletes the deploy workflow.)
+  - **Note:** Vite's template will overwrite `README.md`. Please pay attention to this and use an appropriate method to restore it if needed.
 3. Install dependencies:
 ```
 npm install
