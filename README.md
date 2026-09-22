@@ -1,4 +1,4 @@
-# MP 2: New Clear REACTive App
+# MP 2: Front-end App
 ### Due: Tuesday, Oct 6, 2026, 11:59PM CT
 
 ## Table of Contents
