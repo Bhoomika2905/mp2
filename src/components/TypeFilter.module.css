@@ -1,0 +1,19 @@
+.filterList {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.chip {
+  background: none;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  padding: 0.1rem;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.chipSelected {
+  opacity: 1;
+  border-color: var(--color-accent);
+}

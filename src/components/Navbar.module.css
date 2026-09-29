@@ -1,0 +1,36 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.brand {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.links {
+  display: flex;
+  gap: 1rem;
+}
+
+.link {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.link:hover {
+  background-color: var(--color-surface-hover);
+}
+
+.active {
+  background-color: var(--color-accent);
+  color: white;
+}

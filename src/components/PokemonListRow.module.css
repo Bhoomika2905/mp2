@@ -1,0 +1,39 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.row:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-accent);
+}
+
+.sprite {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+.number {
+  font-family: monospace;
+  color: var(--color-text-muted);
+  width: 3.5rem;
+}
+
+.name {
+  flex: 1;
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.types {
+  display: flex;
+  gap: 0.4rem;
+}
