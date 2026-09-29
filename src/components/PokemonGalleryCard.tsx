@@ -22,7 +22,9 @@ export default function PokemonGalleryCard({ pokemon }: PokemonGalleryCardProps)
         if (e.key === 'Enter') navigate(`/pokemon/${pokemon.id}`);
       }}
     >
-      {image && <img className={styles.image} src={image} alt={pokemon.name} loading="lazy" />}
+      <div className={styles.imageWrap}>
+        {image && <img className={styles.image} src={image} alt={pokemon.name} loading="lazy" />}
+      </div>
       <span className={styles.name}>{pokemon.name}</span>
       <div className={styles.types}>
         {pokemon.types.map((t) => (

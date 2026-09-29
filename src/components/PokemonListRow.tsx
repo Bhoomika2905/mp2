@@ -21,7 +21,9 @@ export default function PokemonListRow({ pokemon }: PokemonListRowProps) {
         if (e.key === 'Enter') navigate(`/pokemon/${pokemon.id}`);
       }}
     >
-      {sprite && <img className={styles.sprite} src={sprite} alt={pokemon.name} />}
+      <div className={styles.spriteWrap}>
+        {sprite && <img className={styles.sprite} src={sprite} alt={pokemon.name} />}
+      </div>
       <span className={styles.number}>#{String(pokemon.id).padStart(3, '0')}</span>
       <span className={styles.name}>{pokemon.name}</span>
       <div className={styles.types}>

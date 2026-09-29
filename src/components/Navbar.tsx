@@ -7,7 +7,10 @@ export default function Navbar() {
 
   return (
     <nav className={styles.navbar}>
-      <span className={styles.brand}>PokeDex Explorer</span>
+      <span className={styles.brand}>
+        <img src={`${import.meta.env.BASE_URL}pokeball.svg`} alt="" className={styles.logo} />
+        PokeDex Explorer
+      </span>
       <div className={styles.links}>
         <NavLink to="/" end className={linkClass}>
           List

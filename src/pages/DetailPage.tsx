@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { usePokemon } from '../context/PokemonContext';
 import TypeBadge from '../components/TypeBadge';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { getStatWidthClass } from '../utils/statBar';
 import styles from './DetailPage.module.css';
 
@@ -16,7 +17,7 @@ export default function DetailPage() {
   );
   const current = currentIndex >= 0 ? pokemon[currentIndex] : undefined;
 
-  if (loading) return <p className={styles.status}>Loading Pokemon...</p>;
+  if (loading) return <LoadingSpinner label="Loading Pokemon..." />;
   if (error) return <p className={styles.status}>{error}</p>;
   if (!current) return <p className={styles.status}>Pokemon not found.</p>;
 
@@ -24,6 +25,8 @@ export default function DetailPage() {
   const hasNext = currentIndex < pokemon.length - 1;
   const image =
     current.sprites.other?.['official-artwork']?.front_default ?? current.sprites.front_default;
+  const primaryType = current.types[0]?.type.name;
+  const heroClass = primaryType ? styles[`hero-${primaryType}`] ?? styles.hero : styles.hero;
 
   function goTo(offset: number) {
     const target = pokemon[currentIndex + offset];
@@ -48,7 +51,10 @@ export default function DetailPage() {
         </button>
 
         <div className={styles.content}>
-          {image && <img className={styles.image} src={image} alt={current.name} />}
+          <div className={`${styles.hero} ${heroClass}`}>
+            {image && <img className={styles.image} src={image} alt={current.name} />}
+          </div>
+
           <h1 className={styles.name}>
             #{String(current.id).padStart(3, '0')} {current.name}
           </h1>

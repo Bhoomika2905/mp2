@@ -3,6 +3,7 @@ import { usePokemon } from '../context/PokemonContext';
 import SearchBar from '../components/SearchBar';
 import SortControls from '../components/SortControls';
 import PokemonListRow from '../components/PokemonListRow';
+import LoadingSpinner from '../components/LoadingSpinner';
 import type { SortKey, SortOrder } from '../types/pokemon';
 import styles from './ListPage.module.css';
 
@@ -44,7 +45,7 @@ export default function ListPage() {
         />
       </div>
 
-      {loading && <p className={styles.status}>Loading Pokemon...</p>}
+      {loading && <LoadingSpinner label="Loading Pokemon..." />}
       {error && <p className={styles.status}>{error}</p>}
       {!loading && !error && visible.length === 0 && (
         <p className={styles.status}>No Pokemon match your search.</p>

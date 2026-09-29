@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { usePokemon } from '../context/PokemonContext';
 import TypeFilter from '../components/TypeFilter';
 import PokemonGalleryCard from '../components/PokemonGalleryCard';
+import LoadingSpinner from '../components/LoadingSpinner';
 import styles from './GalleryPage.module.css';
 
 export default function GalleryPage() {
@@ -36,7 +37,7 @@ export default function GalleryPage() {
         <TypeFilter allTypes={allTypes} selectedTypes={selectedTypes} onToggle={toggleType} />
       </div>
 
-      {loading && <p className={styles.status}>Loading Pokemon...</p>}
+      {loading && <LoadingSpinner label="Loading Pokemon..." />}
       {error && <p className={styles.status}>{error}</p>}
       {!loading && !error && visible.length === 0 && (
         <p className={styles.status}>No Pokemon match the selected filters.</p>
